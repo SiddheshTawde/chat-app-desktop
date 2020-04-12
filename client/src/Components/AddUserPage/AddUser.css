@@ -1,0 +1,84 @@
+.add-user-wrapper {
+  height: calc(100vh - 108px);
+  margin: 24px 12px;
+}
+
+.user-card {
+  display: inline-block;
+  padding: 12px;
+  width: 33.33%;
+}
+
+.user-card-wrapper {
+  border-radius: 4px;
+  padding: 0 12px;
+}
+
+.user-fullname {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.user-email {
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.user-avatar-wrapper {
+  height: 48px;
+  margin: 0 12px;
+}
+
+.user-status-wrapper {
+  border-top: 1px solid #757575;
+  justify-content: flex-end;
+}
+
+.status-button {
+  margin: 12px 0;
+}
+
+.add-user-header {
+  justify-content: space-between;
+  padding: 12px 24px 0;
+}
+
+.page-title {
+  font-size: 24px;
+  user-select: none;
+}
+
+
+.header-actions {
+  justify-content: flex-end;
+}
+
+/* Search */
+
+.add-user-search-wrapper {
+  margin: 0 24px;
+}
+
+.add-user-search-wrapper input[type="search"]:not(.browser-default) {
+  background-color: #424242;
+  padding-left: 12px;
+  border-radius: 4px;
+  border: none !important;
+  margin-bottom: 0 !important;
+}
+
+.add-user-search-wrapper.input-field .prefix {
+  color: #bdbdbd;
+}
+
+.add-user-search-wrapper.input-field
+  input[type="search"]:focus:not(.browser-default) {
+  width: 320px;
+  background-color: #424242;
+  border: 0;
+  box-shadow: none;
+  color: #fafafa;
+}
+
+.add-user-search-wrapper.input-field .prefix.active {
+  color: #fafafa;
+}

@@ -1,0 +1,17 @@
+.onboarding-overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  flex-direction: column;
+  user-select: none;
+}
+
+.onboarding-overlay-wrapper button {
+  margin-top: 24px;
+}

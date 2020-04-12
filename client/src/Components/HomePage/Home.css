@@ -1,0 +1,83 @@
+.home-wrapper {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.default-wrapper {
+  height: calc(100vh - 64px);
+  user-select: none;
+}
+
+.default-wrapper button {
+  margin-top: 16px;
+}
+
+.home-wrapper nav .brand-logo {
+  padding: 0 24px;
+  font-size: 24px;
+  width: fit-content;
+  user-select: none;
+}
+
+.profile-trigger:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.collection {
+  border: none;
+  border-radius: 4px;
+  height: calc(100vh - 64px);
+  user-select: none;
+}
+.collection .collection-item {
+  margin: 12px auto;
+  padding: 14px 72px 14px 0;
+  border-radius: 4px;
+  border-bottom: none;
+}
+.collection .collection-item.avatar {
+  min-height: 72px;
+  cursor: pointer;
+}
+.collection .collection-item.avatar p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.collection .collection-item.avatar .secondary-content {
+  font-size: 10px;
+  top: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.button-text.btn-flat.disabled,
+.button-text.btn-flat.btn-flat[disabled] {
+  color: #424242 !important;
+  transition: color 0.6s ease;
+}
+
+.no-connections-image {
+  height: 191px;
+  width: auto;
+  margin-bottom: -16px;
+  transition: opacity 0.6s ease;
+}
+
+.notifications-wrapper {
+  position: relative;
+}
+
+.notificaiton-count {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  top: 16px;
+  right: 8px;
+  justify-content: center;
+}
+
+.notificaiton-count p {
+  line-height: 16px;
+  font-size: 10px;
+}
