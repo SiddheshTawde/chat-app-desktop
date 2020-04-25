@@ -7,6 +7,40 @@ import { signInAction, signUpAction } from '../../Actions/loginAction';
 
 function Login({ signInAction, signUpAction, userSignedUp }) {
 
+    /*
+        Detect System's Theme and set app's theme.
+
+        This can be changed later from home screen
+    */
+
+    if (window.localStorage.getItem('data-theme')) {
+        if (window.localStorage.getItem('data-theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            window.localStorage.setItem('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            window.localStorage.setItem('data-theme', 'light');
+        }
+    }
+
+    /* 
+        Note: Set Theme from system only if the theme is not set by user.
+        This usefull after user logs out. The selected theme persists.
+    */
+    useEffect(() => {
+        if (!window.localStorage.getItem('data-theme')) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // System Dark Mode
+                document.documentElement.setAttribute('data-theme', 'dark');
+                window.localStorage.setItem('data-theme', 'dark');
+            } else {
+                // System Light Mode
+                document.documentElement.setAttribute('data-theme', 'light');
+                window.localStorage.setItem('data-theme', 'light');
+            }
+        }
+    }, [])
+
     // toggle Sign In/ Sign Up form
     const [showSignUp, toggleSignUp] = useState(false);
 
@@ -77,13 +111,13 @@ function Login({ signInAction, signUpAction, userSignedUp }) {
             // Close Sign Up Form
 
             onSignUpFullnameChange("");
-            document.getElementById('sign-up-fullname').className = "validate grey-text text-lighten-4";
+            document.getElementById('sign-up-fullname').className = "validate sub-text";
 
             onSignUpEmailChange("");
-            document.getElementById('sign-up-email').className = "validate grey-text text-lighten-4";
+            document.getElementById('sign-up-email').className = "validate sub-text";
 
             onSignUpPasswordChange("");
-            document.getElementById('sign-up-password').className = "validate grey-text text-lighten-4";
+            document.getElementById('sign-up-password').className = "validate sub-text";
 
             toggleSignUp(false);
 
@@ -93,10 +127,10 @@ function Login({ signInAction, signUpAction, userSignedUp }) {
             // Open Sign Up Form
 
             onSignInEmailChange("");
-            document.getElementById('sign-in-email').className = "validate grey-text text-lighten-4";
+            document.getElementById('sign-in-email').className = "validate sub-text";
 
             onSignInPasswordChange("");
-            document.getElementById('sign-in-password').className = "validate grey-text text-lighten-4";
+            document.getElementById('sign-in-password').className = "validate sub-text";
 
             toggleSignUp(true);
 
@@ -118,45 +152,45 @@ function Login({ signInAction, signUpAction, userSignedUp }) {
             <div className="row no-margin h-100">
                 <div className="col m8 s12 h-100 hide-on-med-and-down">
                     <div className="logo-wrapper valign-wrapper h-100">
-                        <p className="logo grey-text text-lighten-4">CHAT</p>
-                        <p className="logo-tagline grey-text">Tag line for this application</p>
+                        <p className="logo main-text">CHAT</p>
+                        <p className="logo-tagline sub-text">Tag line for this application</p>
                     </div>
                 </div>
                 <div className="col m4 s12 h-100 valign-wrapper">
-                    <div className="row no-margin valign-wrapper login-form-wrapper w-100 z-depth-1 grey darken-4">
+                    <div className="row no-margin valign-wrapper login-form-wrapper w-100 z-depth-1 surface-1">
 
                         <animated.form id="sign-in-form" className="col s12" onSubmit={onSignInFormSubmit} style={SignInProps}>
 
                             <div className="row no-margin hide-on-med-and-up">
                                 <div className="input-field col s12 center-align">
-                                    <p className="logo grey-text text-lighten-4">CHAT</p>
-                                    <p className="logo-tagline grey-text">Tag line for this application</p>
+                                    <p className="logo main-text">CHAT</p>
+                                    <p className="logo-tagline sub-text">Tag line for this application</p>
                                 </div>
                             </div>
                             <div className="row no-margin">
                                 <div className="input-field col s12">
-                                    <input id="sign-in-email" type="email" className="validate grey-text text-lighten-4" autoComplete="off" autoCorrect="off" value={signInEmail} onChange={e => onSignInEmailChange(e.target.value)} />
+                                    <input id="sign-in-email" type="email" className="validate sub-text" autoComplete="off" autoCorrect="off" value={signInEmail} onChange={e => onSignInEmailChange(e.target.value)} />
                                     <span id="sign-in-email-helper-text" className="helper-text" data-error="" data-success=""></span>
                                     <label htmlFor="sign-in-email">Email</label>
                                 </div>
                             </div>
                             <div className="row no-margin">
                                 <div className="input-field col s12" style={{ position: "relative" }}>
-                                    <input id="sign-in-password" type={showPassword ? "text" : "password"} className="validate grey darken-4 grey-text" autoComplete="off" autoCorrect="off" value={signInPassword} onChange={e => onSignInPasswordChange(e.target.value)} />
+                                    <input id="sign-in-password" type={showPassword ? "text" : "password"} className="validate sub-text" autoComplete="off" autoCorrect="off" value={signInPassword} onChange={e => onSignInPasswordChange(e.target.value)} />
                                     <span id="sign-in-password-helper-text" className="helper-text" data-error="" data-success=""></span>
                                     <label htmlFor="sign-in-password">Password</label>
-                                    <button type="button" className="btn-flat password-visiblity-toggle" onClick={() => togglePasswordVisiblity(!showPassword)}><span className="material-icons grey-text text-lighten-4">{showPassword ? "visibility" : "visibility_off"}</span></button>
+                                    <button type="button" className="btn-flat password-visiblity-toggle" onClick={() => togglePasswordVisiblity(!showPassword)}><span className="material-icons sub-text">{showPassword ? "visibility" : "visibility_off"}</span></button>
                                 </div>
                             </div>
                             <div className="row no-margin">
                                 <div className="input-field col s12 center-align">
-                                    <button type="submit" id="sign-in-submit-button" className="btn waves-effect waves-light grey darken-3 white-text button-text" form="sign-in-form">Sign In</button>
+                                    <button type="submit" id="sign-in-submit-button" className="btn waves-effect waves-light surface-2 main-text button-text" form="sign-in-form">Sign In</button>
                                 </div>
                             </div>
                             <div className="row no-margin">
                                 <div className="input-field col s12 center-align">
-                                    <button className="btn-flat button-text" disabled>Dont have an account?</button>
-                                    <button type="button" className="btn-flat waves-effect waves-light grey-text text-lighten-4 button-text" onClick={handleSignUpToggle}>Sign Up</button>
+                                    <button className="btn-flat sub-text button-text" disabled>Dont have an account?</button>
+                                    <button type="button" className="btn-flat waves-effect waves-light main-text button-text" onClick={handleSignUpToggle}>Sign Up</button>
                                 </div>
                             </div>
                             <div className="row no-margin">
@@ -166,47 +200,47 @@ function Login({ signInAction, signUpAction, userSignedUp }) {
                             </div>
                         </animated.form>
 
-                        <animated.div id="sign-up-sheet" className="grey darken-4" style={SignUpProps}>
+                        <animated.div id="sign-up-sheet" className="surface-1" style={SignUpProps}>
                             <div className="h-100 valign-wrapper">
                                 <form id="sign-up-form" className="col s12" onSubmit={onSignUpFormSubmit}>
 
                                     <div className="row no-margin hide-on-med-and-up">
                                         <div className="input-field col s12 center-align">
-                                            <p className="logo grey-text text-lighten-4">CHAT</p>
-                                            <p className="logo-tagline grey-text">Tag line for this application</p>
+                                            <p className="logo main-text">CHAT</p>
+                                            <p className="logo-tagline sub-text">Tag line for this application</p>
                                         </div>
                                     </div>
                                     <div className="row no-margin">
                                         <div className="input-field col s12">
-                                            <input id="sign-up-fullname" type="text" className="validate grey-text text-lighten-4" autoComplete="off" autoCorrect="off" value={signUpFullname} onChange={e => onSignUpFullnameChange(e.target.value)} />
+                                            <input id="sign-up-fullname" type="text" className="validate sub-text" autoComplete="off" autoCorrect="off" value={signUpFullname} onChange={e => onSignUpFullnameChange(e.target.value)} />
                                             <span id="sign-up-fullname-helper-text" className="helper-text" data-error="" data-success=""></span>
                                             <label htmlFor="sign-up-fullname">Full Name</label>
                                         </div>
                                     </div>
                                     <div className="row no-margin">
                                         <div className="input-field col s12">
-                                            <input id="sign-up-email" type="email" className="validate grey-text text-lighten-4" autoComplete="off" autoCorrect="off" value={signUpEmail} onChange={e => onSignUpEmailChange(e.target.value)} />
+                                            <input id="sign-up-email" type="email" className="validate sub-text" autoComplete="off" autoCorrect="off" value={signUpEmail} onChange={e => onSignUpEmailChange(e.target.value)} />
                                             <span id="sign-up-email-helper-text" className="helper-text" data-error="" data-success=""></span>
                                             <label htmlFor="sign-up-email">Email</label>
                                         </div>
                                     </div>
                                     <div className="row no-margin">
                                         <div className="input-field col s12" style={{ position: 'relative' }}>
-                                            <input id="sign-up-password" type={showPassword ? "text" : "password"} className="validate grey-text text-lighten-4" autoComplete="off" autoCorrect="off" value={signUpPassword} onChange={e => onSignUpPasswordChange(e.target.value)} />
+                                            <input id="sign-up-password" type={showPassword ? "text" : "password"} className="validate sub-text" autoComplete="off" autoCorrect="off" value={signUpPassword} onChange={e => onSignUpPasswordChange(e.target.value)} />
                                             <span id="sign-up-password-helper-text" className="helper-text" data-error="" data-success=""></span>
                                             <label htmlFor="sign-up-password">Password</label>
-                                            <button type="button" className="btn-flat password-visiblity-toggle" onClick={() => togglePasswordVisiblity(!showPassword)}><span className="material-icons grey-text text-lighten-4">{showPassword ? "visibility" : "visibility_off"}</span></button>
+                                            <button type="button" className="btn-flat password-visiblity-toggle" onClick={() => togglePasswordVisiblity(!showPassword)}><span className="material-icons sub-text">{showPassword ? "visibility" : "visibility_off"}</span></button>
                                         </div>
                                     </div>
                                     <div className="row no-margin">
                                         <div className="input-field col s12 center-align">
-                                            <button id="sign-up-submit-button" type="submit" className="btn waves-effect waves-light grey darken-3 white-text button-text" form="sign-up-form">Sign Up</button>
+                                            <button id="sign-up-submit-button" type="submit" className="btn waves-effect waves-light surface-2 main-text button-text" form="sign-up-form">Sign Up</button>
                                         </div>
                                     </div>
                                     <div className="row no-margin">
                                         <div className="input-field col s12 center-align">
-                                            <button className="btn-flat button-text" disabled>Already have an account?</button>
-                                            <button type="button" className="btn-flat grey-text text-lighten-4 button-text" onClick={handleSignUpToggle}>Sign In</button>
+                                            <button className="btn-flat sub-text button-text" disabled>Already have an account?</button>
+                                            <button type="button" className="btn-flat main-text button-text" onClick={handleSignUpToggle}>Sign In</button>
                                         </div>
                                     </div>
                                 </form>

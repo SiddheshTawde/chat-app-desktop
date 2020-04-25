@@ -47,7 +47,6 @@
   user-select: none;
 }
 
-
 .header-actions {
   justify-content: flex-end;
 }
@@ -59,26 +58,15 @@
 }
 
 .add-user-search-wrapper input[type="search"]:not(.browser-default) {
-  background-color: #424242;
   padding-left: 12px;
   border-radius: 4px;
   border: none !important;
   margin-bottom: 0 !important;
 }
 
-.add-user-search-wrapper.input-field .prefix {
-  color: #bdbdbd;
-}
-
 .add-user-search-wrapper.input-field
   input[type="search"]:focus:not(.browser-default) {
   width: 320px;
-  background-color: #424242;
   border: 0;
   box-shadow: none;
-  color: #fafafa;
-}
-
-.add-user-search-wrapper.input-field .prefix.active {
-  color: #fafafa;
 }

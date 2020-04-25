@@ -81,3 +81,8 @@
   line-height: 16px;
   font-size: 10px;
 }
+
+#logout-modal {
+  width: 320px;
+  height: fit-content;
+}

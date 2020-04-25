@@ -15,7 +15,7 @@
 
 .chat-screen-wrapper ul::-webkit-scrollbar {
   width: 0;
-  background: rgba(0, 0, 0, 0.0);
+  background: rgba(0, 0, 0, 0);
 }
 
 .chat-header {
@@ -42,7 +42,7 @@
 
 #chat-input::-webkit-scrollbar {
   width: 0;
-  background: rgba(0, 0, 0, 0.0);
+  background: rgba(0, 0, 0, 0);
 }
 
 #chat-input:hover {
@@ -83,15 +83,19 @@
 .message-wrapper-other {
   width: fit-content;
   max-width: 60%;
-  border-radius: 0 16px 16px 16px;
-  padding: 12px;
+  border-radius: 0 8px 8px 8px;
+  padding: 4px;
   margin: 12px;
 }
 
 .message-wrapper-you {
   width: fit-content;
   max-width: 60%;
-  border-radius: 16px 0 16px 16px;
-  padding: 12px;
+  border-radius: 8px 0 8px 8px;
+  padding: 4px;
   margin: 12px;
+}
+
+.message-body {
+  white-space: pre-wrap;
 }

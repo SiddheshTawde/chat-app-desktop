@@ -1,0 +1,21 @@
+.spinner-white,
+.spinner-white-only {
+  border-color: var(--sub-text);
+}
+
+.button-text.btn-flat.disabled,
+.button-text.btn-flat.btn-flat[disabled] {
+  color: var(--sub-text) !important;
+}
+
+.btn:hover,
+.btn-large:hover,
+.btn-small:hover {
+  background-color: transparent;
+}
+
+.btn:focus,
+.btn-large:focus,
+.btn-small:focus {
+  background-color: transparent;
+}
