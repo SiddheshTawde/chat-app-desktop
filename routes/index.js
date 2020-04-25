@@ -6,6 +6,13 @@ const User = require('../models/user');
 const Session = require('../models/session');
 
 /* 
+  Redirect /login
+*/
+router.get('/login', function (req, res, next) {
+  res.redirect('/');
+})
+
+/* 
   Register
 
     When registration is successful, "all user" event is fired globally.

@@ -19,7 +19,7 @@ function App({ isUserLoggedIn }) {
     <Router>
       <Switch>
         <HomeRoute loginStaus={isUserLoggedIn} exact path="/" component={Home} />
-        <LoginRoute loginStaus={isUserLoggedIn} path="/login" component={Login} />
+        <LoginRoute loginStaus={isUserLoggedIn} exact path="/login" component={Login} />
       </Switch>
     </Router>
   );
