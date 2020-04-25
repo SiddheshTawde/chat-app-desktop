@@ -7,7 +7,7 @@ A simple chat application for Desktop.
 
 ### Concept
  
-![Architecture](https://raw.githubusercontent.com/SiddheshTawde/chat-app/master/contents/Architecture.jpg)
+![Architecture](https://raw.githubusercontent.com/SiddheshTawde/chat-app-desktop/master/contents/Architecture.jpg)
  
  
 ## Getting Started
