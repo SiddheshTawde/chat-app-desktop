@@ -25,13 +25,17 @@ app.use(compression());
 const server = http.createServer(app);
 app.server = server;
 
-// redirect http to https
+//HTTPS redirect middleware
 app.use(function (req, res, next) {
-    if (!req.secure && process.env.NODE_ENV === 'production') {
-        res.redirect("https://" + req.headers.host + req.url);
+    //Heroku stores the origin protocol in a header variable. The app itself is isolated within the dyno and all request objects have an HTTP protocol.
+    if (req.get('X-Forwarded-Proto') == 'https' || req.hostname == 'localhost') {
+        //Serve Angular App by passing control to the next middleware
+        next();
+    } else if (req.get('X-Forwarded-Proto') != 'https' && req.get('X-Forwarded-Port') != '443') {
+        //Redirect if not HTTP with original request URL
+        res.redirect('https://' + req.hostname + req.url);
     }
-    next();
-});
+})
 
 mongoose.connect('mongodb+srv://' + process.env.MONGO_USER + ':' + process.env.MONGO_PASSWORD + '@' + process.env.MONGO_CLUSTER + '-xtz0y.mongodb.net/' + process.env.MONGO_DB + '?retryWrites=true&w=majority', { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true })
     .then(function () { console.log("Connected to MongoDB Atlas") })
