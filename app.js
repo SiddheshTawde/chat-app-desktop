@@ -25,6 +25,14 @@ app.use(compression());
 const server = http.createServer(app);
 app.server = server;
 
+// redirect http to https
+app.use(function (req, res, next) {
+    if (!req.secure && process.env.NODE_ENV === 'production') {
+        res.redirect("https://" + req.headers.host + req.url);
+    }
+    next();
+});
+
 mongoose.connect('mongodb+srv://' + process.env.MONGO_USER + ':' + process.env.MONGO_PASSWORD + '@' + process.env.MONGO_CLUSTER + '-xtz0y.mongodb.net/' + process.env.MONGO_DB + '?retryWrites=true&w=majority', { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true })
     .then(function () { console.log("Connected to MongoDB Atlas") })
     .catch(function (err) { console.log("Error in connecting to MongoDB Atlast. ", err) })
@@ -92,7 +100,7 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -106,10 +114,12 @@ app.use(express.static(path.join(__dirname, '/public')));
 */
 app.use(function (req, res, next) {
 
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Credentials', true)
-    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
-    res.header('Access-Control-Allow-Headers', 'Accept, Content-Type')
+    if (process.env.NODE_ENV === 'development') {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.header('Access-Control-Allow-Credentials', true)
+        res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
+        res.header('Access-Control-Allow-Headers', 'Accept, Content-Type')
+    }
 
     next();
 })

@@ -86,3 +86,12 @@
   width: 320px;
   height: fit-content;
 }
+
+.sidenav-logout-wrapper {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  padding: 0 12px;
+  justify-content: flex-end;
+  border-top: 1px #757575 solid;
+}

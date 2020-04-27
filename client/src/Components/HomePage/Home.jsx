@@ -4,7 +4,7 @@ import LostAstronaut from './lost-astronaut.png';
 import LonelyAstronaut from './lonely-astronaut.png'
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { Modal } from 'materialize-css';
+import { Modal, Sidenav } from 'materialize-css';
 
 import { signOutAction } from '../../Actions/loginAction';
 import { getUserInfo } from '../../Actions/userAction';
@@ -22,7 +22,9 @@ function Home({ signOutAction, getUserInfo, getAllChats, userInfo, chats }) {
     useEffect(() => {
         Modal.init(document.getElementById('logout-modal'), {
             dismissible: false
-        })
+        });
+
+        Sidenav.init(document.getElementById('main-sidenav'))
     }, [])
 
     useEffect(() => {
@@ -94,15 +96,18 @@ function Home({ signOutAction, getUserInfo, getAllChats, userInfo, chats }) {
             <div className="navbar-fixed">
                 <nav>
                     <div className="nav-wrapper surface-1">
-                        <p className="brand-logo main-text no-margin">Welcome, <span className="profile-trigger">{userInfo.fullname.split(" ")[0]}</span></p>
-                        <ul className="right hide-on-med-and-down">
+                        <div className="sidenav-trigger hide-on-large-only" data-target="main-sidenav">
+                            <i className="material-icons sub-text">menu</i>
+                        </div>
+                        <p className="brand-logo main-text no-margin hide-on-med-and-down">Welcome, <span className="profile-trigger">{userInfo.fullname.split(" ")[0]}</span></p>
+                        <ul className="right">
                             <li className="notifications-wrapper">
                                 <div className="notificaiton-count red circle valign-wrapper">
                                     <p className="no-margin white-text">0</p>
                                 </div>
                                 <button className='btn-flat sub-text material-icons' style={{ textTransform: "none", fontSize: 18 }}>notifications</button>
                             </li>
-                            <li>
+                            <li className="hide-on-med-and-down">
                                 <div className="switch">
                                     <label>
                                         Light
@@ -112,7 +117,7 @@ function Home({ signOutAction, getUserInfo, getAllChats, userInfo, chats }) {
                                     </label>
                                 </div>
                             </li>
-                            <li>
+                            <li className="hide-on-med-and-down">
                                 <button className='btn-flat sub-text button-text modal-trigger' style={{ textTransform: "none" }} data-target="logout-modal">Sign Out</button>
                             </li>
                         </ul>
@@ -194,6 +199,21 @@ function Home({ signOutAction, getUserInfo, getAllChats, userInfo, chats }) {
                 </div>
             </div>
 
+            <ul id="main-sidenav" className="sidenav surface-1">
+                <li>
+                    <div className="user-view">
+                        <div className="background surface-2">
+                        </div>
+                        <img className="circle" src={userInfo.picture === "" ? 'images/default_avatar.png' : userInfo.picture} alt="" />
+                        <span className="main-text name">{userInfo.fullname}</span>
+                        <span className="main-text email">{userInfo.email}</span>
+                    </div>
+                </li>
+                
+                <li className="valign-wrapper sidenav-logout-wrapper">
+                    <p className="red-text no-margin modal-trigger sidenav-close" data-target="logout-modal">Logout</p>
+                </li>
+            </ul>
             {userInfo.showOnboarding ? <Onboarding updatePanel={updatePanel} /> : null}
         </div>
     )
