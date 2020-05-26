@@ -95,3 +95,13 @@
   justify-content: flex-end;
   border-top: 1px #757575 solid;
 }
+
+.online-status {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  bottom: 16px;
+  left: 44px;
+  z-index: 1;
+}

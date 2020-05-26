@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { toast, updateTextFields } from 'materialize-css';
-import { SIGN_IN, SIGN_UP, SIGN_OUT } from '../Actions/actionTypes';
+import { updateTextFields } from 'materialize-css';
+import { SIGN_IN, SIGN_UP } from '../Actions/actionTypes';
 
 const fadeOutTime = 6000;
 
@@ -207,23 +207,4 @@ export const signUpAction = ({ fullname, email, password }) => disptach => {
             })
     }
 
-}
-
-export const signOutAction = history => dispatch => {
-    axios.post('/signout', { sessionID: localStorage.getItem('sessionID') })
-        .then(res => {
-            if (res.data.serverResponse === 'success') {
-                // Clean up
-                localStorage.removeItem('sessionID');
-                dispatch({
-                    type: SIGN_OUT
-                })
-
-                history.push('/login');
-            } else {
-                // Error on server side
-                toast({ html: `<span>${res.data.serverResponse}</span><button class="btn-flat toast-action" onclick="M.Toast.dismissAll()"><i class="material-icons grey-text text-darken-4">close</i></button>`, classes: "grey lighten-4 red-text text-darken-2", displayLength: 4000 })
-            }
-        })
-        .catch(err => console.log(err))
 }

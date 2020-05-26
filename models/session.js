@@ -14,7 +14,8 @@ let SessionSchema = new Schema({
             path: String,
             sameSite: Boolean
         },
-        user: String
+        user: String,
+        socketIO: String
     }
 }, { collection: 'sessions' })
 

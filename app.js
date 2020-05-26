@@ -47,7 +47,9 @@ const io = require('socket.io')(server);
 app.io = io;
 
 io.on('connection', socket => {
+    const Session = require('./models/session');
     const Chat = require('./models/chat');
+    const User = require('./models/user');
     const aes256 = require('aes256');
 
     const key = process.env.AES_ENCRYP_KEY;
@@ -76,6 +78,27 @@ io.on('connection', socket => {
                 Note: both users need to join room before sending messages.
         */
         socket.join(data.rooms)
+    })
+
+    socket.on('User Online', async data => {
+
+        Session.findOne({ _id: data })
+            .then(sessionDoc => {
+                if (sessionDoc === null) {
+                    io.emit('update user status', 'update conversations')
+                } else {
+                    User.findOneAndUpdate({ email: sessionDoc.session.user }, { onlineStatus: "online" })
+                        .then(() => {
+                            io.emit('update user status', 'update conversations');
+                        })
+                        .catch(err => io.emit('update user status', 'update conversations'))
+                }
+            })
+            .catch(err => io.emit('update user status', 'update conversations'))
+    })
+
+    socket.on("disconnect", () => {
+        console.log("User Disconnected")
     })
 
     app.socket = socket;

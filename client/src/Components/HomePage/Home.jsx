@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { Modal, Sidenav } from 'materialize-css';
 
-import { signOutAction } from '../../Actions/loginAction';
+import { signOutAction } from '../../Actions/logoutAction';
 import { getUserInfo } from '../../Actions/userAction';
 import { getAllChats } from '../../Actions/chatAction';
 import AddUser from '../AddUserPage/AddUser';
@@ -34,11 +34,20 @@ function Home({ signOutAction, getUserInfo, getAllChats, userInfo, chats }) {
 
     useEffect(function () {
         socket.on("update chats", () => getAllChats());
+        socket.on("update user status", (data) => getAllChats());
         socket.on("conversations", () => {
             getAllChats();
             updatePanel("ChatScreen")
         })
-    })
+    });
+
+    useEffect(function () {
+        socket.emit("User Online", localStorage.getItem("sessionID"));
+
+        window.BeforeUnloadEvent = function () {
+            socket.emit("User Offline", localStorage.getItem("sessionID"));
+        }
+    }, []);
 
     const [currentChatInfo, updateChatInfo] = useState({})
     const handleChatToggle = (chatInfo) => {
@@ -136,6 +145,7 @@ function Home({ signOutAction, getUserInfo, getAllChats, userInfo, chats }) {
                             (chats.length > 0 ?
                                 (chats.map((chat, i) =>
                                     <li key={i} className="collection-item avatar surface-2" onClick={() => handleChatToggle({ tag: chat.tag, user: chat.participants[0], messages: chat.messages, isGroup: chat.isGroup, displayname: chat.displayname })}>
+                                        <div className={chat.participants[0].onlineStatus === "online" ? "online-status z-depth-1 green" : "online-status z-depth-1 grey"} ></div>
                                         <img src={chat.participants[0].picture === "" ? "images/default_avatar.png" : chat.participants[0].picture} alt="avatar" className="circle" />
                                         <span className="title main-text">{chat.participants[0].fullname}</span>
                                         <p className="sub-text">{chat.messages.length === 0 ? "No previous conversations" : chat.messages[chat.messages.length - 1].body}</p>
@@ -152,7 +162,7 @@ function Home({ signOutAction, getUserInfo, getAllChats, userInfo, chats }) {
                         }
                     </ul>
                 </div>
-                <div className="col s12 l9 hide-on-med-and-down h-100">
+                <div className="col s12 l9 h-100">
                     {showPanel === "DefaultScreen" ?
                         (chats[0] === 'checking' ?
                             <div className="default-wrapper" >
@@ -209,7 +219,7 @@ function Home({ signOutAction, getUserInfo, getAllChats, userInfo, chats }) {
                         <span className="main-text email">{userInfo.email}</span>
                     </div>
                 </li>
-                
+
                 <li className="valign-wrapper sidenav-logout-wrapper">
                     <p className="red-text no-margin modal-trigger sidenav-close" data-target="logout-modal">Logout</p>
                 </li>

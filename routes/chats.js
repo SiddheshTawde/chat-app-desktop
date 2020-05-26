@@ -50,6 +50,7 @@ router.get('/:sessionID', async function (req, res, next) {
             participantInfo['fullname'] = info.fullname;
             participantInfo['email'] = info.email;
             participantInfo['picture'] = info.picture;
+            participantInfo['onlineStatus'] = info.onlineStatus;
 
             participants.push(participantInfo);
           }

@@ -52,7 +52,8 @@ router.post('/signup', function (req, res, next) {
                   picture: "",
                   picture_original: "",
                   contacts: [],
-                  showOnboarding: true
+                  showOnboarding: true,
+                  onlineStatus: "offline"
                 })
                   .then(() => {
                     // req.app.io.emit('all users', 'all users');
@@ -101,6 +102,7 @@ router.post('/signin', function (req, res, next) {
               .then(result => {
                 if (result === true) {
                   req.session.user = email;
+                  req.session.socketIO = req.cookies.io;
                   req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 356;
 
                   res.send({ serverResponse: "success", sessionID: req.sessionID });

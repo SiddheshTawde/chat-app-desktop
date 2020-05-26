@@ -33,7 +33,7 @@ router.get('/:sessionID', async function (req, res, next) {
     userInfo['email'] = userDoc.email;
     userInfo['picture'] = userDoc.picture;
     userInfo['picture_original'] = userDoc.picture_original;
-    userInfo['showOnboarding'] = userDoc.showOnboarding;
+    userInfo['showOnboarding'] = userDoc.showOnboarding
 
     res.send({ serverResponse: 'success', userInfo: userInfo })
   }

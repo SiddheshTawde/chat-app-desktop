@@ -9,6 +9,7 @@ const UserSchema = mongoose.Schema({
     contacts: [String],
     chats: [String],
     showOnboarding: Boolean,
+    onlineStatus: String
 }, { collection: "users" })
 
 const User = mongoose.model("User", UserSchema);
